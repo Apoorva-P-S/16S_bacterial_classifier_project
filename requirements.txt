@@ -1,0 +1,45 @@
+# =============================================================================
+# requirements.txt
+# 16S rRNA Bacterial Genus Classifier -- Python dependencies
+#
+# Covers every Python script in this project:
+#   2.1_make_split_manifest.py, 4_genus_classifier_train_val_test.py, 
+#   5_dataset_diagnostics.py,
+#   and the legacy Python preprocessing scripts under python/legacy_preprocessing/
+#   (fasta_utils.py, 0_clean_16s_dataset.py, 1_build_taxonomy_table.py,
+#    2_build_kmer_matrix.py, 3_visualize_correlation_and_reduce_features_fixed.R)
+#
+# R dependencies are NOT covered here -- see README.md "Prerequisites"
+# for the R package list (corrplot, igraph, ggplot2, umap; base R covers
+# the rest) and the external vsearch binary requirement.
+#
+# Install with:
+#   pip install -r requirements.txt
+# =============================================================================
+
+# --- Core data handling (used in every script) ---
+pandas>=2.0
+numpy>=1.24
+
+# --- Modeling, splitting, evaluation (2.1_make_split_manifest.py, genus_classifier_train_val_test.py) ---
+scikit-learn>=1.3
+xgboost>=1.7
+
+# --- Interpretability (genus_classifier_train_val_test.py) ---
+shap>=0.44
+
+# --- Plotting (confusion matrices, ROC curves, SHAP charts) ---
+matplotlib>=3.7
+
+# --- Model persistence (save/load .joblib model + label encoder files) ---
+joblib>=1.3
+
+# --- Sequence I/O for the LEGACY Python preprocessing path only ---
+# (python/legacy_preprocessing/0_clean_16s_dataset.py -- not required if you
+# use the recommended R preprocessing pipeline instead)
+biopython>=1.81
+
+# --- OPTIONAL: only needed if you set METHOD="umap" in 3_visualize_correlation_and_reduce_features_fixed.R
+# (python/legacy_preprocessing/). Defaults to PCA, which needs no extra
+# package beyond scikit-learn above. Uncomment to enable:
+# umap-learn>=0.5
